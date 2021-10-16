@@ -87,12 +87,12 @@ const SidebarNavigation: React.FC<ISidebarNavigationProps> = ({collapsed, ...pro
 
       {/* Modal for new board */}
       <Modal
-        title="Create New Board Item"
+        title="Create New Board"
         visible={isModalVisible}
         onOk={handleOnOk}
         onCancel={handleOnCancel}>
         <Input
-          placeholder="Enter Board's Item name"
+          placeholder="Enter Board's name"
           value={inputVal}
           onChange={e => setInputVal(e.target.value)}
         />
