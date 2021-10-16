@@ -23,7 +23,6 @@ const BoardView: React.FC<IBoardViewProps> = ({...props}) => {
 
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [inputVal, setInputVal] = React.useState<string>('');
-  console.log({columns});
 
   const handleOnOk = React.useCallback(() => {
     if (inputVal === '') return;
@@ -43,6 +42,10 @@ const BoardView: React.FC<IBoardViewProps> = ({...props}) => {
 
   React.useEffect(() => {
     const items = boardItems.filter(b => b.boardId === id);
+    if (boards.length == 0 && boardItems.length == 0) {
+      history.push('/');
+      return;
+    }
 
     setBoardName(boards.filter(b => b.id === id)[0].title);
     setColumns(items);
@@ -84,10 +87,10 @@ const BoardView: React.FC<IBoardViewProps> = ({...props}) => {
           <PageHeader
             className="site-page-header-responsive"
             title={boardName}
-            style={{padding: 0}}
+            style={{padding: '10px 15px', background: 'white', marginBottom: 15}}
             extra={[
               <Button icon={<PlusOutlined />} type="primary" onClick={handleShowAddItemModal}>
-                Add New Item
+                Add Column
               </Button>,
             ]}
           />
@@ -107,7 +110,7 @@ const BoardView: React.FC<IBoardViewProps> = ({...props}) => {
 
       {/* Modal for new board */}
       <Modal
-        title="Create New Board Item"
+        title="Create New Board Column"
         visible={isModalVisible}
         onOk={handleOnOk}
         onCancel={handleOnCancel}>

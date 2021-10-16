@@ -43,11 +43,7 @@ export interface ITaskLaneProps {
 const {TextArea} = Input;
 
 const TaskLane: React.FC<ITaskLaneProps> = ({id, title, cards, ...props}) => {
-  const handleStart = (e: any) => {};
-  const handleDrag = (e: any) => {};
-  const handleStop = (e: any) => {};
-
-  const {addCardToBoardItem} = useAppStore();
+  const {addCardToBoardItem, deleteBoardItem} = useAppStore();
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [card, setCard] = React.useState<Omit<CardProps, 'id'>>();
 
@@ -67,10 +63,17 @@ const TaskLane: React.FC<ITaskLaneProps> = ({id, title, cards, ...props}) => {
     setCard(undefined);
   };
 
+  const handleDeleteColumn = () => {
+    deleteBoardItem(id);
+  };
+
   const menu = (
     <Menu>
       <Menu.Item onClick={handleShowAddCardModal}>
         <span>Add New Card</span>
+      </Menu.Item>
+      <Menu.Item onClick={handleDeleteColumn}>
+        <span>Delete this Column</span>
       </Menu.Item>
     </Menu>
   );

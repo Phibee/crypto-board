@@ -13,7 +13,7 @@ export type AppStore = {
   addBoardItem: (item: BoardItemProps) => void;
   updateBoardItem: (item: BoardItemProps) => void;
   updateBoardItems: (boardId: string, items: BoardItemProps[]) => void;
-  deleteBoardItem: () => void;
+  deleteBoardItem: (boardItemId: string) => void;
   addCardToBoardItem: (boardItemId: string, card: Omit<CardProps, 'id'>) => void;
 };
 
@@ -21,7 +21,7 @@ const useAppStore = create<AppStore>(
   persist(
     (set, get) => ({
       boardItems: [],
-      boards: [{id: uuid(), title: 'Board Sample'}],
+      boards: [],
       addBoard: boardName =>
         set(state =>
           produce(state, draft => {
@@ -48,7 +48,14 @@ const useAppStore = create<AppStore>(
             draft.boardItems = [...otherItems, ...items];
           }),
         ),
-      deleteBoardItem: () => set(state => produce(state, draft => {})),
+      deleteBoardItem: boardItemId =>
+        set(state =>
+          produce(state, draft => {
+            let boardColumnToDeleteIndex = state.boardItems.findIndex(bi => bi.id === boardItemId);
+
+            draft.boardItems.splice(boardColumnToDeleteIndex, 1);
+          }),
+        ),
       addCardToBoardItem: (boardItemId, card) =>
         set(state =>
           produce(state, draft => {

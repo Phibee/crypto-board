@@ -25,16 +25,9 @@ const LayoutPage: React.FC<ILayoutProps> = ({ children, ...props }) => {
                 onClick: toggle,
               })}
             </Header>
-            <Breadcrumb style={{margin: '16px 16px'}}>
-              <Breadcrumb.Item>Board</Breadcrumb.Item>
-            </Breadcrumb>
             <Content
               style={{
-                margin: '5px 16px 24px',
-                paddingTop: 20,
-                paddingLeft: 20,
-                paddingRight: 20,
-                paddingBottom: 25,
+                margin: '15px 16px 15px',
                 minHeight: 280,
                 overflow: 'auto',
               }}>

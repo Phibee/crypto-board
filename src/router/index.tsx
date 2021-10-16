@@ -1,20 +1,20 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Board from "../pages/Board";
-import { BoardItemProps } from "../types/board.item";
+import Home from '../pages/Home';
+import Board from '../pages/Board';
 
 export const AdminRoutes: React.VFC<{}> = () => {
-      return (
-        <>
-          <Route path="/" exact>
-            <div></div>
-          </Route>
-          <Route path="/board/:id" exact>
-            <Board />
-          </Route>
-        </>
-      );
+  return (
+    <>
+      <Route path="/" exact>
+        <Home />
+      </Route>
+      <Route path="/board/:id" exact>
+        <Board />
+      </Route>
+    </>
+  );
 };
 
 export const DefaultRoutes: React.VFC<{}> = () => {
