@@ -6,11 +6,14 @@ import { BoardItemProps } from "../types/board.item";
 
 export const AdminRoutes: React.VFC<{}> = () => {
       return (
-            <>
-                  <Route path="/" exact>
-                        <Board />
-                  </Route>
-            </>
+        <>
+          <Route path="/" exact>
+            <div></div>
+          </Route>
+          <Route path="/board/:id" exact>
+            <Board />
+          </Route>
+        </>
       );
 };
 

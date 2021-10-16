@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Layout, Menu} from 'antd';
+import {Button, Input, Layout, Menu, Modal} from 'antd';
 import {
   DashboardOutlined,
   SettingOutlined,
@@ -9,6 +9,7 @@ import {
 import {FiClipboard} from 'react-icons/fi';
 
 import {NavLink} from 'react-router-dom';
+import useAppStore from '../store';
 
 export interface ILayoutProps {}
 
@@ -20,47 +21,83 @@ export interface ISidebarNavigationProps {
 }
 
 const SidebarNavigation: React.FC<ISidebarNavigationProps> = ({collapsed, ...props}) => {
+  const {addBoard, boards} = useAppStore();
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [inputVal, setInputVal] = React.useState('');
+
+  const handleAddBoard = () => {
+    setIsModalVisible(true);
+    setInputVal('');
+  };
+
+  const handleOnOk = React.useCallback(() => {
+    addBoard(inputVal);
+    setIsModalVisible(false);
+  }, [inputVal]);
+
+  const handleOnCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
-    <Sider trigger={null} theme="dark" collapsible collapsed={collapsed}>
-      <div className="logo" />
-      <Menu
-        theme="dark"
-        mode="inline"
-        defaultSelectedKeys={[window.location.pathname.toString()]}
-        defaultOpenKeys={[]}
-        style={{borderRight: 0}}>
-        <Menu.Item
-          key="1"
-          style={{
-            paddingLeft: 15,
-            paddingRight: 15,
-            backgroundColor: 'transparent',
-          }}>
-          <Button
-            icon={
-              <PlusCircleOutlined
-                style={
-                  collapsed
-                    ? {
-                        lineHeight: 'initial',
-                        paddingTop: 4,
-                      }
-                    : {}
-                }
-              />
-            }
-            block
-            type="primary">
-            Add New Board
-          </Button>
-        </Menu.Item>
-        <Menu.Item key={'/'} icon={<FiClipboard />}>
-          <NavLink to="/">
-            <span>Board 1</span>
-          </NavLink>
-        </Menu.Item>
-      </Menu>
-    </Sider>
+    <>
+      <Sider trigger={null} theme="dark" collapsible collapsed={collapsed}>
+        <div className="logo" />
+        <Menu
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={[window.location.pathname.toString()]}
+          defaultOpenKeys={[]}
+          style={{borderRight: 0}}>
+          <Menu.Item
+            key="1"
+            style={{
+              paddingLeft: 15,
+              paddingRight: 15,
+              backgroundColor: 'transparent',
+            }}>
+            <Button
+              icon={
+                <PlusCircleOutlined
+                  style={
+                    collapsed
+                      ? {
+                          lineHeight: 'initial',
+                          paddingTop: 4,
+                        }
+                      : {}
+                  }
+                />
+              }
+              block
+              onClick={handleAddBoard}
+              style={{backgroundColor: '#48c50b', border: 'none', color: 'white'}}>
+              Add New Board
+            </Button>
+          </Menu.Item>
+          {boards.map(item => (
+            <Menu.Item key={`/board/${item.id}`} icon={<FiClipboard />}>
+              <NavLink to={`/board/${item.id}`}>
+                <span>{item.title}</span>
+              </NavLink>
+            </Menu.Item>
+          ))}
+        </Menu>
+      </Sider>
+
+      {/* Modal for new board */}
+      <Modal
+        title="Create New Board Item"
+        visible={isModalVisible}
+        onOk={handleOnOk}
+        onCancel={handleOnCancel}>
+        <Input
+          placeholder="Enter Board's Item name"
+          value={inputVal}
+          onChange={e => setInputVal(e.target.value)}
+        />
+      </Modal>
+    </>
   );
 };
 
