@@ -52,7 +52,7 @@ const TaskLane: React.FC<ITaskLaneProps> = ({id, title, cards, ...props}) => {
 
     card && addCardToBoardItem(id, card);
     setIsModalVisible(false);
-  }, [card, id]);
+  }, [card, id, addCardToBoardItem]);
 
   const handleOnCancel = () => {
     setIsModalVisible(false);
@@ -133,6 +133,7 @@ const TaskLane: React.FC<ITaskLaneProps> = ({id, title, cards, ...props}) => {
                   return (
                     <Draggable key={item.id} draggableId={item.id} index={index}>
                       {(provided, snapshot) => {
+                        console.log({provided});
                         return (
                           <div
                             ref={provided.innerRef}

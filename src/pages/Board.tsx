@@ -1,12 +1,12 @@
 import React from 'react';
 import TaskLane from '../components/TaskLane';
 import {BoardItemProps} from '../types/board.item';
-import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
+import {DragDropContext} from 'react-beautiful-dnd';
 import useAppStore from '../store';
 import {useHistory, useParams} from 'react-router';
 import {Button, Input, Modal, PageHeader} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
-import {isEmpty, cloneDeep} from 'lodash';
+import {cloneDeep} from 'lodash';
 
 export interface IBoardViewProps {}
 
@@ -29,7 +29,7 @@ const BoardView: React.FC<IBoardViewProps> = ({...props}) => {
 
     addBoardItemByBoardId(id, inputVal);
     setIsModalVisible(false);
-  }, [inputVal, id]);
+  }, [inputVal, id, addBoardItemByBoardId]);
 
   const handleOnCancel = () => {
     setIsModalVisible(false);
@@ -42,13 +42,15 @@ const BoardView: React.FC<IBoardViewProps> = ({...props}) => {
 
   React.useEffect(() => {
     const items = boardItems.filter(b => b.boardId === id);
-    if (boards.length == 0 && boardItems.length == 0) {
+    if (boards.length === 0 && boardItems.length === 0) {
       history.push('/');
       return;
     }
 
     setBoardName(boards.filter(b => b.id === id)[0].title);
     setColumns(items);
+
+    /* eslint-disable react-hooks/exhaustive-deps */
   }, [boardItems, id]);
 
   const onDragEnd = (result: any, columns: BoardItemProps[], setColumns: any) => {

@@ -3,6 +3,7 @@ import {CardProps} from '../types/card';
 import {isEmpty} from 'lodash';
 import {LinkOutlined} from '@ant-design/icons';
 import styled from 'styled-components';
+const {v4: uuidv4} = require('uuid');
 
 const LinkIconContainerStyled = styled.div`
   position: absolute;
@@ -51,7 +52,13 @@ const TaskCard: React.FC<ITaskCardProps> = ({card, ...props}) => {
                 onClick={() => window.open(card.imageUrl, '_blank')}>
                 <LinkOutlined />
               </LinkIconContainerStyled>
-              <img src={card.imageUrl} style={{width: '100%', maxHeight: 150}} />
+              {card.imageUrl && (
+                <img
+                  alt={`image_${uuidv4()}`}
+                  src={card.imageUrl}
+                  style={{width: '100%', maxHeight: 150}}
+                />
+              )}
             </Container>
           )}
         </div>

@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React from 'react';
+import {Route} from 'react-router-dom';
 
 import Home from '../pages/Home';
 import Board from '../pages/Board';
@@ -18,5 +18,5 @@ export const AdminRoutes: React.VFC<{}> = () => {
 };
 
 export const DefaultRoutes: React.VFC<{}> = () => {
-      return <></>;
+  return <></>;
 };

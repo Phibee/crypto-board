@@ -1,11 +1,6 @@
 import React from 'react';
 import {Button, Input, Layout, Menu, Modal} from 'antd';
-import {
-  DashboardOutlined,
-  SettingOutlined,
-  CarryOutOutlined,
-  PlusCircleOutlined,
-} from '@ant-design/icons';
+import {PlusCircleOutlined} from '@ant-design/icons';
 import {FiClipboard} from 'react-icons/fi';
 
 import {NavLink} from 'react-router-dom';
@@ -13,7 +8,6 @@ import useAppStore from '../store';
 
 export interface ILayoutProps {}
 
-const {SubMenu} = Menu;
 const {Sider} = Layout;
 
 export interface ISidebarNavigationProps {
@@ -33,7 +27,7 @@ const SidebarNavigation: React.FC<ISidebarNavigationProps> = ({collapsed, ...pro
   const handleOnOk = React.useCallback(() => {
     addBoard(inputVal);
     setIsModalVisible(false);
-  }, [inputVal]);
+  }, [inputVal, addBoard]);
 
   const handleOnCancel = () => {
     setIsModalVisible(false);

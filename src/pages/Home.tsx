@@ -22,7 +22,7 @@ const ContentSubTitleStyled = styled.div`
 export interface IHomeProps {}
 
 const NoBoardFound = () => {
-  const {addBoard, boards} = useAppStore();
+  const {addBoard} = useAppStore();
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [inputVal, setInputVal] = React.useState('');
 
@@ -42,7 +42,7 @@ const NoBoardFound = () => {
 
   return (
     <>
-      <img src={imgRes} height={200} />
+      <img src={imgRes} alt="kanban_image" height={200} />
       <ContentTitleStyled>Create your first Board</ContentTitleStyled>
       <ContentSubTitleStyled>
         Try creating a board not only one but multiple boards separated from one another.
